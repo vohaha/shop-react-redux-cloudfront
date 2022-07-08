@@ -1,23 +1,25 @@
-service: node-in-aws-web
+service: vohaha-service-test-2
 
-frameworkVersion: '2'
+frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs14.x
   # setup profile for AWS CLI.
   # profile: node-aws
+  region: eu-west-1
+  deploymentMethod: direct
 
 plugins:
   - serverless-finch
   # 'serverless-single-page-app-plugin' is a custom plugin that located .serverless_plugins folder.
   # Existing plugin (https://www.npmjs.com/package/serverless-single-page-app-plugin) doesn't have invalidate cache feature that often used during CI/CD events.
   # How to build your own plugins: https://www.serverless.com/framework/docs/providers/aws/guide/plugins#service-local-plugin
-  - serverless-single-page-app-plugin
+  - ./.serverless_plugins/serverless-single-page-app-plugin.js
 
 custom:
   client:
-    bucketName: node-in-aws-web-bucket
+    bucketName: vohaha-bucket-test-2
     distributionFolder: build
   s3BucketName: ${self:custom.client.bucketName}
 
